@@ -2,8 +2,10 @@
 
 if (!isset($_SESSION['users'])) {
     $users = array(
-        array('username' => 'admin', 'password' => '123456'),
-        array('username' => 'admin1', 'password' => '123456'),
+        array('username' => 'admin', 'password' => '123456', 'role' => 'admin'),
+        array('username' => 'admin1', 'password' => '123456', 'role' => 'admin'),
+        array('username' => 'admin2', 'password' => '123456', 'role' => 'admin'),
+        array('username' => 'admin4', 'password' => '123456', 'role' => 'admin'),
     );
     $_SESSION['users'] = $users;
 }
