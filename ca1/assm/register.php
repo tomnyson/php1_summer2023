@@ -31,19 +31,30 @@
         if (isset($connection) && count($errors) < 1) {
             // insert
             try {
-                $sql = "INSERT INTO users(username, password, role, email) VALUES(:username, :password, :role, :email)";
-                $statement = $connection->prepare($sql);
-                // ma hoa mat khau
-                if ($statement->execute([
-                    ':password' => password_hash($password, PASSWORD_DEFAULT),
-                    ':role' => 1, ':username' => $username,
-                    ":email" => $email
-                ])) {
-                    $message = 'tạo thành công';
-                    header("Location: login.php");
-                    exit;
+                $sql1 = "SELECT * FROM users where username = :username";
+                $statement1 = $connection->prepare($sql1);
+                $statement1->execute([
+                    ':username' => $username
+                ]);
+                $result = $statement1->setFetchMode(PDO::FETCH_ASSOC);
+                $count_user = count($statement1->fetchAll());
+                if ($count_user > 0) {
+                    array_push($errors, "Username already exists!");
                 } else {
-                    echo "not create success";
+                    $sql = "INSERT INTO users(username, password, role, email) VALUES(:username, :password, :role, :email)";
+                    $statement = $connection->prepare($sql);
+                    // ma hoa mat khau
+                    if ($statement->execute([
+                        ':password' => password_hash($password, PASSWORD_DEFAULT),
+                        ':role' => 1, ':username' => $username,
+                        ":email" => $email
+                    ])) {
+                        $message = 'tạo thành công';
+                        header("Location: login.php");
+                        exit;
+                    } else {
+                        echo "not create success";
+                    }
                 }
             } catch (Exception $err) {
                 echo $err->getMessage();
@@ -84,8 +95,8 @@
                         <label for="password">Email</label>
                         <input type="email" class="form-control" name="email" placeholder="Enter your password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
-
+                    <button type="submit" class="btn btn-primary">Register</button> <br>
+                    <a href="./login.php">Login a account</a>
                 </form>
             </div>
         </div>
