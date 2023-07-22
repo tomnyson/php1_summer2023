@@ -8,7 +8,9 @@
 
 <body>
     <?php
+    session_start();
     require_once("./provider.php");
+    require_once("./User.php");
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -39,11 +41,26 @@
                 var_dump($user);
                 if ($user > 0) {
                     $currentPass = $result1[0]['password'];
-                    echo "currentPass" . $currentPass;
-                    die();
                     if (password_verify($password, $currentPass)) {
-                        echo "LOGIN";
-                        die;
+                        // 
+                        $user =  new User(
+                            $result1[0]['id'],
+                            $result1[0]['username'],
+                            $result1[0]['role']
+                        );
+                        $_SESSION['currentUser'] = $user;
+                        echo "role" . $user->role;
+                        if ($user->role === "1") {
+                            //admin user
+                            echo "go admin";
+                            header('Location: dashboard.php');
+                            exit;
+                        }
+                        if ($user->role === "2") {
+                            //admin user
+                            header('Location: index.php');
+                            exit;
+                        }
                     } else {
                         array_push($errors, "Username or password invalid");
                     }
