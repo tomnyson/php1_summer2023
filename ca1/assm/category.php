@@ -23,13 +23,53 @@ if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']->role !== '1') 
             <?php
             include_once('./layout/nav.php');
             include_once('./layout/sidebar.php');
+            include_once('./provider.php');
+
+            if (isset($_POST['name'])) {
+
+                $error = "";
+                $message = "";
+                $sql = "SELECT * FROM categories where name= :name";
+                $statement = $connection->prepare($sql);
+                $statement->execute([
+                    ':name' => trim($_POST['name']),
+                ]);
+                $result = $statement->setFetchMode(PDO::FETCH_ASSOC);
+                $result1 = $statement->fetchAll();
+                $numCategory = $statement->rowCount();
+
+                if ($numCategory > 0) {
+                    $error = "category name is existed";
+                } else {
+
+                    $sql1 = "INSERT INTO categories( name ) VALUES( :name )";
+                    $statement1 = $connection->prepare($sql1);
+                    // var_dump($sql1);
+                    // die;
+                    if ($statement1->execute([':name' => trim($_POST['name'])])) {
+                        $message = "create success";
+                    }
+                }
+            }
             ?>
             <div class="col col-lg-10">
                 <h4>list category</h4>
-                <div class="form">
-                    <input type="text" class="form-control" placeholder="enter name" />
+                <form action="./category.php" method="POST" class="form">
+                    <input type="text" class="form-control" name="name" placeholder="enter name" />
                     <button type="submit" class="btn btn-success">create</button>
-                </div>
+                </form>
+                <?php
+                if (isset($error) && $error !== "") {
+                    echo " <div class='alert alert-danger' role='alert'>
+                            $error
+                     </div>";
+                }
+                if (isset($message) &&  $message !== "") {
+                    echo " <div class='alert alert-success' role='alert'>
+                            $message
+                     </div>";
+                }
+                ?>
                 <table class="table table-striped"">
                     <thead>
                         <tr>

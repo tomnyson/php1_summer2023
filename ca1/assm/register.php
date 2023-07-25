@@ -41,7 +41,7 @@
                 if ($count_user > 0) {
                     array_push($errors, "Username already exists!");
                 } else {
-                    $sql = "INSERT INTO users(username, password, role, email) VALUES(:username, :password, :role, :email)";
+                    $sql = "INSERT INTO users(username, password, role, email)  (:username, :password, :role, :email)";
                     $statement = $connection->prepare($sql);
                     // ma hoa mat khau
                     if ($statement->execute([
