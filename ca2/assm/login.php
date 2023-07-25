@@ -9,7 +9,10 @@
 <body>
 
     <?php
+    session_start();
     require_once("./provider.php");
+    require_once("./user.php");
+
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -34,6 +37,17 @@
                 $currentUser = $statement1->fetchAll()[0];
                 if (password_verify($password, $currentUser['password'])) {
                     //xu ly dang nhap thanh cong
+                    $user = new User($currentUser['id'], $currentUser['username'], $currentUser['role']);
+                    $_SESSION['currentUser'] = $user;
+                    if ($user->role == '1') {
+                        //admin redirect url
+                        echo "admin";
+                        header('location: dashboard.php');
+                        exit;
+                    } else {
+                        header('location: index.php');
+                        exit;
+                    }
                 } else {
                     $errors[] = "Username or password  not correct";
                 }

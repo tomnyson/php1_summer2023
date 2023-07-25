@@ -49,7 +49,7 @@
                     ":role" => 1,
                     ":email" => $email
                 ])) {
-                    echo "success create a user";
+                    header("Location: login.php");
                 }
             }
         }

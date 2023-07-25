@@ -6,7 +6,6 @@ session_start();
 if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']->role !== '1') {
     header('Location: login.php');
 }
-var_dump($_SESSION['currentUser']->username)
 ?>
 
 <head>
@@ -14,7 +13,7 @@ var_dump($_SESSION['currentUser']->username)
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="./css/bootstrap.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/dashboard.css">
 </head>
@@ -47,14 +46,14 @@ var_dump($_SESSION['currentUser']->username)
             <div class="col col-lg-2">
                 <ul class="list-group">
                     <li class="list-group-item">Users</li>
-                    <li class="list-group-item">Category</li>
+                    <li class="list-group-item"><a href="./category.php">Category</a></li>
                     <li class="list-group-item">Product</li>
                     <li class="list-group-item">Order</li>
                     <li class="list-group-item">Report</li>
                 </ul>
             </div>
             <div class="col col-lg-10">
-                <?php include('./category.php') ?>
+                <!-- <?php include('./category.php') ?> -->
             </div>
         </div>
     </div>
