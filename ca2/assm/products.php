@@ -20,6 +20,7 @@ include('./layout/header.php')
                     <input type="text" class="form-control" id="name" name="name" placeholder="input name category">
                     <button type="submit" class="btn btn-primary mb-2">save</button>
                 </form>
+                <a class="btn btn-primary " href="./products-create.php">create</a>
                 <?php
                 if (isset($_POST['name']) && isset($_POST['id'])) {
                     $message = "";

@@ -4,7 +4,9 @@
           <li class="list-group-item">
               <a href="./categories.php">categories</a>
           </li>
-          <li class="list-group-item">Product</li>
+          <li class="list-group-item">
+              <a href="./products.php">products</a>
+          </li>
           <li class="list-group-item">Order</li>
           <li class="list-group-item">Report</li>
       </ul>
