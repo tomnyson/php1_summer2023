@@ -67,6 +67,7 @@ include('./layout/header.php')
                             <td><?php echo $category['name'];  ?></td>
                             <td>
                                 <button class="btn btn-primary">edit</button>
+
                                 <a class="btn btn-danger"
                                     href="./delete-category.php?id=<?php echo $category['id'];  ?>">delete</a>
                             </td>

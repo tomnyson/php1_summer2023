@@ -48,7 +48,7 @@
                             $result1[0]['username'],
                             $result1[0]['role']
                         );
-                        $_SESSION['currentUser'] = $user;
+                        $_SESSION['currentUser'] = $user->serialize();
                         echo "role" . $user->role;
                         if ($user->role === "1") {
                             //admin user

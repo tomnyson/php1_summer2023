@@ -23,9 +23,6 @@ class User implements Serializable
 
     public function unserialize($data)
     {
-        $data = unserialize($data);
-        $this->username = $data['username'];
-        $this->role = $data['role'];
-        $this->id = $data['id'];
+        list($this->id, $this->username, $this->role) = unserialize($data);
     }
 }

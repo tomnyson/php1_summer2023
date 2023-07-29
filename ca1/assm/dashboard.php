@@ -1,10 +1,17 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 <?php
-require_once('./User.php');
-session_start();
-if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']->role !== '1') {
-    header('Location: login.php');
+if (!isset($_SESSION['currentUser'])) {
+    $user = unserialize($_SESSION['currentUser']);
+    if ($user->role != '1') {
+        header('Location: login.php');
+        exit;
+    }
 }
 ?>
 
@@ -13,8 +20,7 @@ if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']->role !== '1') 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
 
-    <link href="./css/bootstrap.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="./css/bootstrap.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/dashboard.css">
 </head>
 
@@ -24,8 +30,7 @@ if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']->role !== '1') 
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">Dashboard</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
